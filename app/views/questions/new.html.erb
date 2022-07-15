@@ -1,0 +1,17 @@
+<div class="row">
+<div class="col-md-8 offset-2">
+
+<%= form_with(model:@question, url:questions_path, method: :post, local: true) do |f| %>
+  <%= f.label :chapter %><br>
+  <%= f.number_field :chapter %><br>
+  
+  <%= f.label :image %><br>
+  <%= f.file_field :image %><br> 
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+
+  <%= f.submit %>
+<% end %>
+
+</div>
+</div>

@@ -1,0 +1,5 @@
+<% @questions.each do |question| %> 
+  <% if question.image.attached? %>
+    <%= image_tag question.image %>
+  <% end %>
+<% end %>
