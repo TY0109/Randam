@@ -1,52 +1,9 @@
-<% @chapter1_questions.each do |question1| %> 
-  <% if question1.image.attached? %>
-    <%= image_tag question1.image %>
+<h1>自分が投稿した問題一覧</h1>
+<% @questions.each do |question| %>
+  <% if question.image.attached? %>
+    <%= image_tag question.image, class:"d-block w-100" %>
+    <% if admin_user_signed_in? %>
+      <%=link_to "削除", admin_user_question_path(@admin_user, question), method: :delete %><br>
+    <% end %>
   <% end %>
 <% end %>
-
-<% @chapter2_questions.each do |question2| %> 
-  <% if question2.image.attached? %>
-    <%= image_tag question2.image %>
-  <% end %>
-<% end %>
-
-<% @chapter3_questions.each do |question3| %> 
-  <% if question3.image.attached? %>
-    <%= image_tag question3.image %>
-  <% end %>
-<% end %>
-
-<% @chapter4_questions.each do |question4| %> 
-  <% if question4.image.attached? %>
-    <%= image_tag question4.image %>
-  <% end %>
-<% end %>
-
-<% @chapter5_questions.each do |question5| %> 
-  <% if question5.image.attached? %>
-    <%= image_tag question5.image %>
-  <% end %>
-<% end %>
-
-<% @chapter6_questions.each do |question6| %> 
-  <% if question6.image.attached? %>
-    <%= image_tag question6.image %>
-  <% end %>
-<% end %>
-
-<% @chapter7_questions.each do |question7| %> 
-  <% if question7.image.attached? %>
-    <%= image_tag question7.image %>
-  <% end %>
-<% end %>
-
-<% @chapter8_questions.each do |question8| %> 
-  <% if question8.image.attached? %>
-    <%= image_tag question8.image %>
-  <% end %>
-<% end %>
-
-
-
-
-

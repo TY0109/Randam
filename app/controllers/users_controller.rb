@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user! ,only:[:index,:show, :destroy]
-  before_action :set_user, only:[:show, :edit]
-  before_action :admin_user ,only: [:index, :destroy]
+  # 定義は不要だが、showが自作なので、before_actionには記載必要
+  before_action :authenticate_user!, only:[:show]
+  # 定義必要
+  before_action :set_user, only:[:show]
+  # 管理者ユーザーがログインしていないと、一般ユーザー一覧画面は見られない
+  before_action :authenticate_admin_user!, only:[:index]
+  
 
   def index
     @users = User.all
   end
 
   def show
+    @questions = Question.all
   end
 
   private

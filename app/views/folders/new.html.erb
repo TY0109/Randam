@@ -1,0 +1,23 @@
+<h1>フォルダを作成（テキストの登録）</h1>
+<%= form_with(model:@folder, url:admin_user_folders_path(@admin_user) ,local: true) do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  
+  <div class="user_area">
+    <%= f.label :users %><br />
+    <%= collection_check_boxes(:folder, :user_ids, User.all, :id, :name) do |b| %>
+      <%= b.label { b.check_box + b.text } %>
+    <% end %>
+  </div>
+
+  <% if admin_user_signed_in? %>
+    <%= f.hidden_field :admin_user_id , :value => current_admin_user.id %> 
+  <% elsif user_signed_in? %>
+    <%= f.hidden_field :admin_user_id , :value => current_user.admin_user.id %> 
+  <% end %>
+
+
+  <%= f.submit :"新規作成" %>
+
+<% end %>
+

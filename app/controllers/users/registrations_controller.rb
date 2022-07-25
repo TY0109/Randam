@@ -10,9 +10,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    if admin_user_signed_in?
+      @user = User.new(user_params)
+      if @user.save
+        flash[:success] = "従業員を作成しました"
+        redirect_to users_path
+      else
+        render :new
+      end
+    else
+      super
+    end
+  end
+
+  private
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :admin_user_id)
+    end
 
   # GET /resource/edit
   # def edit
@@ -38,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  #protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
@@ -52,9 +67,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    "/users/#{current_user.id}"
+    user_path(current_user)
   end
-
+ 
   #更新時に、現在のパスワードを不要にする
   protected
   # 追加(必須)
@@ -62,7 +77,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params)
   end
 
-  # 必須ではないがupdate後にtop画面にリダイレクトするメソッド
+  # 必須ではないがupdate後にユーザー詳細にリダイレクトするメソッド
   def after_update_path_for(_resource)
     "/users/#{current_user.id}"
   end
