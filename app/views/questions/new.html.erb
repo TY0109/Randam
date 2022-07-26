@@ -1,14 +1,22 @@
 <div class="row">
 <div class="col-md-8 offset-2">
 
-<%= form_with(model:@question, url:questions_path, method: :post, local: true) do |f| %>
+<%= form_with(model:@question, url:admin_user_questions_path, method: :post, local: true) do |f| %>
   <%= f.label :chapter %><br>
-  <%= f.number_field :chapter %><br>
+  <%= f.number_field :chapter, min:"1", required:true %><br>
   
+  <%= f.label :folder_in %><br>
+  <%= f.collection_select(:folder_in, @folders, :name, :name, { include_blank:"選択してください" , required:true } ) %><br>
+
   <%= f.label :image %><br>
   <%= f.file_field :image %><br> 
-
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <% if admin_user_signed_in? %>
+    <%= f.hidden_field :admin_user_id , :value => current_admin_user.id %> 
+  <% elsif user_signed_in? %>
+    <%= f.hidden_field :admin_user_id , :value => current_user.admin_user.id %> 
+    <%= f.hidden_field :user_id , :value => current_user.id %> 
+  <% end %>
 
   <%= f.submit %>
 <% end %>

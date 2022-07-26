@@ -27,6 +27,10 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control"  %>
   </div>
+  
+  <% if admin_user_signed_in? %>
+    <%= f.hidden_field :admin_user_id, :value => current_admin_user.id %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "新規作成", class:"btn btn-primary " %>

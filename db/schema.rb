@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_113017) do
+ActiveRecord::Schema.define(version: 2022_07_25_175929) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,15 +40,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_113017) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.integer "chapter"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_questions_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -57,12 +49,58 @@ ActiveRecord::Schema.define(version: 2022_07_15_113017) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.boolean "admin", default: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name"
+    t.integer "admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_folders_on_admin_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "chapter"
+    t.string "folder_in"
+    t.string "user_id"
+    t.integer "admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_questions_on_admin_user_id"
+  end
+
+  create_table "user_folders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "folder_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["folder_id"], name: "index_user_folders_on_folder_id"
+    t.index ["user_id"], name: "index_user_folders_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.boolean "is_valid", default: true, null: false
+    t.index ["admin_user_id"], name: "index_users_on_admin_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "questions", "users"
+  add_foreign_key "folders", "admin_users"
+  add_foreign_key "questions", "admin_users"
+  add_foreign_key "user_folders", "folders"
+  add_foreign_key "user_folders", "users"
+  add_foreign_key "users", "admin_users"
 end
