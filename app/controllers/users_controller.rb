@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   # 定義は不要だが、showが自作なので、before_actionには記載必要
-  before_action :authenticate_user!, only:[:show, :unsubscribe]
+  before_action :authenticate_user!, only:[:show]
   # 定義必要
-  before_action :set_user, only:[:show]
+  before_action :set_user, only:[:show, :unsubscribe]
   # 管理者ユーザーがログインしていないと、一般ユーザー一覧画面は見られない
   before_action :authenticate_admin_user!, only:[:index]
   
 
   def index
-    @users = User.all
+    @users = User.where(is_valid:true)
   end
 
   def show

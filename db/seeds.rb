@@ -14,13 +14,15 @@ AdminUser.create(name: "管理者1",
 user1 = User.create(name: "従業員１",
             email: "sample@email.com",
             password: "password",
-            admin_user_id: 1
+            admin_user_id: 1,
+            is_valid:true
            )
 
 user2 = User.create(name: "従業員2", 
             email: "sample-1@email.com",
             password: "password",
-            admin_user_id: 1
+            admin_user_id: 1,
+            is_valid:true
            )
 
 folder1 = Folder.create(name: "白チャートIA", 

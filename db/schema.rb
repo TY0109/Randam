@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 2022_07_25_175929) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.string "code"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -91,7 +90,6 @@ ActiveRecord::Schema.define(version: 2022_07_25_175929) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.string "admin_code"
     t.boolean "is_valid", default: true, null: false
     t.index ["admin_user_id"], name: "index_users_on_admin_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true

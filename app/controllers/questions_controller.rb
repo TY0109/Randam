@@ -2,11 +2,8 @@ class QuestionsController < ApplicationController
   before_action :set_admin_user
 
   def index
-    if admin_user_signed_in?
-      @questions = Question.all
-    elsif user_signed_in?
-      @questions = Question.where(user_id:current_user.id)
-    end
+    @questions = Question.all
+    
     # @chapter1_questions= @admin_user.questions.where(chapter: 1)
     # @chapter1_question_selected = @chapter1_questions.offset( rand( @chapter1_questions.count ) ).first
     
