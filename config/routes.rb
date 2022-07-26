@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     resources :questions
   end
 
-  
+  get "users/:id/unsubscribe" => "users#unsubscribe", as: 'confirm_unsubscribe'
+  patch "users/:id/withdraw" => "users#withdraw", as: 'withdraw_user'
+
 
  
     
