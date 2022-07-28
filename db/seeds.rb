@@ -11,14 +11,14 @@ AdminUser.create(name: "管理者1",
                  password: "password",
                 )
 
-user1 = User.create(name: "従業員１",
+user1 = User.create(name: "スタッフ１",
             email: "sample@email.com",
             password: "password",
             admin_user_id: 1,
             is_valid:true
            )
 
-user2 = User.create(name: "従業員2", 
+user2 = User.create(name: "スタッフ2", 
             email: "sample-1@email.com",
             password: "password",
             admin_user_id: 1,
@@ -77,6 +77,61 @@ question = Question.create(chapter: 1,
 question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.png')),
                       filename: 'user_4.png'
                      )
+
+
+folder1 = Folder.create(name: "白チャートIIB", 
+                        admin_user_id: 1
+                       )
+
+UserFolder.create( user_id: user1.id, folder_id:folder1.id )
+
+
+# 各チャプター１枚ずつデフォルトの写真を生成(chapter1のみ、2枚)
+question = Question.create(chapter: 1,
+                         admin_user_id: 1,
+                         folder_in: "白チャートIIB"
+                        )
+
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/default.png')),
+                    filename: 'default.png'
+                   )
+                   
+question = Question.create(chapter: 2,
+                         admin_user_id: 1,
+                         folder_in: "白チャートIIB"
+                        )
+      
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.png')),
+                    filename: 'user_1.png'
+                   )
+
+question = Question.create(chapter: 3,
+                         admin_user_id: 1,
+                         folder_in: "白チャートIIB"
+                        )
+   
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_2.png')),
+                    filename: 'user_2.png'
+                   )
+
+question = Question.create(chapter: 4,
+                         admin_user_id: 1,
+                         folder_in: "白チャートIIB"
+                       )
+
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_3.png')),
+                    filename: 'user_3.png'
+                   )
+
+
+question = Question.create(chapter: 1,
+                         admin_user_id: 1,
+                         folder_in: "白チャートIIB"
+                        )
+
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.png')),
+                    filename: 'user_4.png'
+                   )
 
 
 

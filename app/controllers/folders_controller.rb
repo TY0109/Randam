@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
   before_action :set_admin_user
   before_action :set_folder, only:[:show]
-  before_action :right_user, only:[:show]
+  before_action :right_user, only:[:edit]
 
   def new
     @folder = @admin_user.folders.build
