@@ -9,4 +9,9 @@ class Question < ApplicationRecord
     end
   end
 
+  def was_attached?
+    self.image.attached?
+   end
+   
+
 end

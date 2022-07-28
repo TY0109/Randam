@@ -1,4 +1,9 @@
 class QuestionsController < ApplicationController
+  include SessionsHelper
+  # 正しい管理者→CRUD
+  # 正しい管理者の配下のスタッフ→CRUD. ただし、編集と削除は自分の投稿した問題のみ
+
+  before_action :authenticate_admin_user!
   before_action :set_admin_user
 
   def index
@@ -51,5 +56,11 @@ class QuestionsController < ApplicationController
       @admin_user = AdminUser.find(params[:admin_user_id])
     end
 
-
+    def correct_admin_user
+      unless current_admin_user?(@admin_user)
+        flash[:alert]="権限がありません"
+        redirect_to root_url
+      end
+    end
+    
 end

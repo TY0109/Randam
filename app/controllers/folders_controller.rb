@@ -1,7 +1,12 @@
 class FoldersController < ApplicationController
+  include SessionsHelper
+  # 正しい管理者→CRUD
+  # 正しい管理者の配下のスタッフ→R（予定）
+
+  before_action :authenticate_admin_user!, only:[:new,:create, :index, :show] 
   before_action :set_admin_user
-  before_action :set_folder, only:[:show]
-  before_action :right_user, only:[:edit]
+  before_action :correct_admin_user, only:[:new, :create, :index, :show] 
+  before_action :set_folder, only:[:show, :randam]
 
   def new
     @folder = @admin_user.folders.build
@@ -22,6 +27,11 @@ class FoldersController < ApplicationController
   end
 
   def show
+    @questions = @admin_user.questions.where(folder_in: @folder.name)
+  end
+  
+  # テストページ。非ログインでも閲覧可能
+  def randam
     @questions = @admin_user.questions.where(folder_in: @folder.name )
     
     @chapter1_questions=@questions.where(chapter: 1) 
@@ -36,6 +46,18 @@ class FoldersController < ApplicationController
     @chapter4_questions=@questions.where(chapter:4)
     @chapter4_question_selected = @chapter4_questions.offset( rand( @chapter4_questions.count ) ).first
     
+    @chapter5_questions=@questions.where(chapter: 5) 
+    @chapter5_question_selected = @chapter5_questions.offset( rand( @chapter5_questions.count ) ).first
+
+    @chapter6_questions=@questions.where(chapter:6)
+    @chapter6_question_selected = @chapter6_questions.offset( rand( @chapter6_questions.count ) ).first
+    
+    @chapter7_questions=@questions.where(chapter:3)
+    @chapter7_question_selected = @chapter7_questions.offset( rand( @chapter7_questions.count ) ).first
+    
+    @chapter8_questions=@questions.where(chapter:8)
+    @chapter8_question_selected = @chapter8_questions.offset( rand( @chapter8_questions.count ) ).first
+    
   end
 
 
@@ -43,24 +65,22 @@ class FoldersController < ApplicationController
     def folder_params
       params.require(:folder).permit(:name, :admin_user_id , {:user_ids => []})
     end
-   
+
     def set_admin_user
       @admin_user = AdminUser.find(params[:admin_user_id])
+    end
+
+    def correct_admin_user
+      unless current_admin_user?(@admin_user)
+        flash[:alert]="権限がありません"
+        redirect_to root_url
+      end
     end
 
     def set_folder
       @folder = @admin_user.folders.find(params[:id])
     end
 
-    def right_user
-      unless admin_user_signed_in?
-        @right_folder = @folder.user_folders.find_by(user_id:current_user.id, folder_id:@folder.id)
-        unless @right_folder
-          flash[:alert]="権限がないため閲覧できません。"
-          redirect_to root_url
-        end
-      end
-    end
 end
 
 

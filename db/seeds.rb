@@ -29,9 +29,6 @@ folder1 = Folder.create(name: "白チャートIA",
                         admin_user_id: 1
                        )
 
-UserFolder.create( user_id: user1.id, folder_id:folder1.id )
-
-
 # 各チャプター１枚ずつデフォルトの写真を生成(chapter1のみ、2枚)
 question = Question.create(chapter: 1,
                            admin_user_id: 1,
@@ -39,8 +36,8 @@ question = Question.create(chapter: 1,
                            folder_in: "白チャートIA"
                           )
 
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/default.png')),
-                      filename: 'default.png'
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.png')),
+                      filename: 'user_1.png'
                      )
                      
 question = Question.create(chapter: 2,
@@ -49,8 +46,8 @@ question = Question.create(chapter: 2,
                            folder_in: "白チャートIA"
                           )
         
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.png')),
-                      filename: 'user_1.png'
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_2.png')),
+                      filename: 'user_2.png'
                      )
 
 question = Question.create(chapter: 3,
@@ -59,8 +56,8 @@ question = Question.create(chapter: 3,
                            folder_in: "白チャートIA"
                           )
      
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_2.png')),
-                      filename: 'user_2.png'
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_3.png')),
+                      filename: 'user_3.png'
                      )
 
 question = Question.create(chapter: 4,
@@ -69,8 +66,8 @@ question = Question.create(chapter: 4,
                            folder_in: "白チャートIA"
                          )
   
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_3.png')),
-                      filename: 'user_3.png'
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.png')),
+                      filename: 'user_4.png'
                      )
 
 question = Question.create(chapter: 1,
@@ -79,64 +76,56 @@ question = Question.create(chapter: 1,
                            folder_in: "白チャートIA"
                           )
 
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.png')),
-                      filename: 'user_4.png'
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.png')),
+                      filename: 'user_1.png'
                      )
 
 
+question = Question.create(chapter: 5,
+                           admin_user_id: 1,
+                           user_id:1,
+                           folder_in: "白チャートIA"
+                          )
+
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_5.png')),
+                      filename: 'user_5.png'
+                     )
+                  
+question = Question.create(chapter: 6,
+                           admin_user_id: 1,
+                           user_id:1,
+                           folder_in: "白チャートIA"
+                          )
+     
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_6.png')),
+                      filename: 'user_6.png'
+                  )
+
+question = Question.create(chapter: 7,
+                           admin_user_id: 1,
+                           user_id:1,
+                           folder_in: "白チャートIA"
+                          )
+  
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_7.png')),
+                      filename: 'user_7.png'
+                     )
+
+question = Question.create(chapter: 8,
+                           admin_user_id: 1,
+                           user_id:1,
+                          folder_in: "白チャートIA"
+                          )
+
+question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_8.png')),
+                      filename: 'user_8.png'
+                     )
+
+
+                
 folder2 = Folder.create(name: "白チャートIIB", 
                         admin_user_id: 1
                        )
-
-UserFolder.create( user_id: user1.id, folder_id:folder2.id )
-
-
-# 各チャプター１枚ずつデフォルトの写真を生成(chapter1のみ、2枚)
-question = Question.create(chapter: 1,
-                         admin_user_id: 1,
-                         folder_in: "白チャートIIB"
-                        )
-
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/default.png')),
-                    filename: 'default.png'
-                   )
-                   
-question = Question.create(chapter: 2,
-                         admin_user_id: 1,
-                         folder_in: "白チャートIIB"
-                        )
-      
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.png')),
-                    filename: 'user_1.png'
-                   )
-
-question = Question.create(chapter: 3,
-                         admin_user_id: 1,
-                         folder_in: "白チャートIIB"
-                        )
-   
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_2.png')),
-                    filename: 'user_2.png'
-                   )
-
-question = Question.create(chapter: 4,
-                         admin_user_id: 1,
-                         folder_in: "白チャートIIB"
-                       )
-
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_3.png')),
-                    filename: 'user_3.png'
-                   )
-
-
-question = Question.create(chapter: 1,
-                         admin_user_id: 1,
-                         folder_in: "白チャートIIB"
-                        )
-
-question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.png')),
-                    filename: 'user_4.png'
-                   )
 
 
 

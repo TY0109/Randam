@@ -2,11 +2,12 @@
 <div class="col-md-8 offset-2">
 
 <%= form_with(model:@question, url:admin_user_questions_path, method: :post, local: true) do |f| %>
-  <%= f.label :chapter %><br>
-  <%= f.number_field :chapter, min:"1", required:true %><br>
   
   <%= f.label :folder_in %><br>
   <%= f.collection_select(:folder_in, @folders, :name, :name, { include_blank:"選択してください" , required:true } ) %><br>
+
+  <%= f.label :chapter %><br>
+  <%= f.number_field :chapter, min:"1", required:true %><br>
 
   <%= f.label :image %><br>
   <%= f.file_field :image %><br> 

@@ -7,10 +7,9 @@
  <div class="row">
   <div class="col-md-6 offset-3">
     <p>チャートの基本例題をランダムで演習することができます。</p><br>
-    <p>問題構成は</p>
+    <p>数IA: 数と式、集合と命題、2次関数、図形と計量、データと分析、<br>場合の数と確率、整数の性質、図形の性質</p>
+    <p>数IIB: 図形と方程式、三角関数、指数・対数関数、微分、積分、<br>数列、ベクトル</p>
 
-    <!-- 場合の数と確率→整数の性質→図形の性質-->
-    <!-- 3場合の数と確率、整数の性質、図形の性質については、2つ選択-->
     <div class="post-btn-area">
       <% if admin_user_signed_in? %>
         <%= link_to "問題作成", new_admin_user_question_path(current_admin_user), class:"btn btn-danger" %><br>
@@ -18,21 +17,15 @@
         <%= link_to "問題作成", new_admin_user_question_path(current_user.admin_user.id), class:"btn btn-danger" %><br>
       <% end %>
 
+    <div class="folder-index">
       <% if admin_user_signed_in? %>
-        <%= link_to "フォルダ作成", new_admin_user_folder_path(current_admin_user), class:"btn btn-warning" %><br>
-      <% elsif user_signed_in? %>
-        <%= link_to "フォルダ作成", new_admin_user_folder_path(current_user.admin_user.id), class:"btn btn-warning" %><br>
-      <% end %>
-    
-    <div class="question-index">
-      <% if admin_user_signed_in? %>
-        <%= link_to "フォルダ一覧", admin_user_folders_path(@admin_user) %>
+        <%= link_to "フォルダ一覧", admin_user_folders_path(@admin_user), class:"btn btn-warning" %>
       <% end %>
     </div>
 
     <div class="test-link">
       <% @folders.each do |folder| %>
-        <%= link_to folder.name, admin_user_folder_path(@admin_user.id, folder), class:"btn btn-light" %>
+        <%= link_to folder.name, randam_admin_user_folder_path(@admin_user.id, folder.id) %>
       <% end %>
     </div>
 

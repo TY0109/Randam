@@ -30,8 +30,16 @@ Rails.application.routes.draw do
   resources :users, only:[:index, :show] 
 
   resources :admin_users, only:[:show] do
-    resources :folders
+    resources :folders do
+
+      member do
+        get "randam"
+      end
+
+    end
+     
     resources :questions
+
   end
   
   # 退会についてのeditとupdate的なアクション

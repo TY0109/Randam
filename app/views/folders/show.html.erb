@@ -1,72 +1,12 @@
-<%= @folder.name %><br>
-<%= link_to "問題をリセット", "#", class:"btn btn-danger" %>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-  <!--カルーセルの枠にidを付与し、画像のidと紐付け。data-interval="3000"はなしにした-->
-  <div id="carousel" class="carousel slide" data-ride="carousel" >
-    <ol class="carousel-indicators">
-      <li data-target="#carousel" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel" data-slide-to="1"></li>
-      <li data-target="#carousel" data-slide-to="2"></li>
-      <li data-target="#carousel" data-slide-to="3"></li>
-    </ol>
-    <div class="carousel-inner">
-      <!--「activeクラス」が付与されることで、画像が表示される-->
-      <div class="carousel-item active">
-        <!--w-50は「幅を50％に指定」と言う意味です。srcで画像を指定します。-->
-        <% if @chapter1_question_selected .image.attached? %>
-          <%= image_tag @chapter1_question_selected .image, class:"d-block w-100" %>
-        <% end %>
-      </div>
-     
-      <div class="carousel-item">
-        <% if @chapter2_question_selected.image.attached? %>
-          <%= image_tag @chapter2_question_selected.image, class:"d-block w-100" %>
-        <% end %>
-      </div>
-      <div class="carousel-item">
-        <% if @chapter3_question_selected.image.attached? %>
-          <%= image_tag @chapter3_question_selected.image, class:"d-block w-100"%>
-        <% end %>
-      </div>
-      <div class="carousel-item">
-        <% if @chapter4_question_selected.image.attached? %>
-          <%= image_tag @chapter4_question_selected.image, class:"d-block w-100" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  
-  <!-- コントロールボタン -->
-  <div class="control-buttons mt-1">
-    <input type="button" class="btn btn-outline-primary prev-slide" value="＜">
-    <input type="button" class="btn btn-outline-primary next-slide" value="＞">
-  </div>  
-  
-  <script type="text/javascript">
-  
-  // 前の画像へ
-  $(".prev-slide").on('click',function(){
-    $("#carousel").carousel('prev');
-  });
-  // 次の画像へ
-  $(".next-slide").on('click',function(){
-    $("#carousel").carousel('next');
-  });
-  </script>
-
-  <style>
-  /*インジケーターの位置調整*/
-  .carousel-indicators{
-  margin-right: 20%;
-  background-color:green;
-  }
-  /*「次へ」「前へ」ボタンの位置調整*/
-  .mt-1{
-  margin-left:520px;
-  } 
-  </style>
+<h1>このフォルダの問題一覧</h1>
+<% @questions.each do |question| %>
+  <% if question.image.attached? %>
+    <%= image_tag question.image, class:"d-block w-100" %>
+    <% if question.user.present? %>
+      <%= question.user.name %>
+    <% end %>
+    <% if admin_user_signed_in? %>
+      <%=link_to "削除", admin_user_question_path(@admin_user, question), method: :delete %><br>
+    <% end %>
+   <% end %>
+<% end %>
