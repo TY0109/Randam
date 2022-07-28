@@ -3,8 +3,6 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    
-    # @chapter1_questions= @admin_user.questions.where(chapter: 1)
     # @chapter1_question_selected = @chapter1_questions.offset( rand( @chapter1_questions.count ) ).first
     
     # @chapter2_questions=@admin_user.questions.where(chapter:2)

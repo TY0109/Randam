@@ -35,6 +35,7 @@ UserFolder.create( user_id: user1.id, folder_id:folder1.id )
 # 各チャプター１枚ずつデフォルトの写真を生成(chapter1のみ、2枚)
 question = Question.create(chapter: 1,
                            admin_user_id: 1,
+                           user_id:1,
                            folder_in: "白チャートIA"
                           )
 
@@ -44,6 +45,7 @@ question.image.attach(io: File.open(Rails.root.join('./app/assets/images/default
                      
 question = Question.create(chapter: 2,
                            admin_user_id: 1,
+                           user_id:1,
                            folder_in: "白チャートIA"
                           )
         
@@ -53,6 +55,7 @@ question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_1.
 
 question = Question.create(chapter: 3,
                            admin_user_id: 1,
+                           user_id:1,
                            folder_in: "白チャートIA"
                           )
      
@@ -62,6 +65,7 @@ question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_2.
 
 question = Question.create(chapter: 4,
                            admin_user_id: 1,
+                           user_id:1,
                            folder_in: "白チャートIA"
                          )
   
@@ -71,6 +75,7 @@ question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_3.
 
 question = Question.create(chapter: 1,
                            admin_user_id: 1,
+                           user_id:1,
                            folder_in: "白チャートIA"
                           )
 
@@ -79,11 +84,11 @@ question.image.attach(io: File.open(Rails.root.join('./app/assets/images/user_4.
                      )
 
 
-folder1 = Folder.create(name: "白チャートIIB", 
+folder2 = Folder.create(name: "白チャートIIB", 
                         admin_user_id: 1
                        )
 
-UserFolder.create( user_id: user1.id, folder_id:folder1.id )
+UserFolder.create( user_id: user1.id, folder_id:folder2.id )
 
 
 # 各チャプター１枚ずつデフォルトの写真を生成(chapter1のみ、2枚)

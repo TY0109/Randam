@@ -41,14 +41,32 @@
     </div>
   </div>
   
+  <!-- コントロールボタン -->
+  <div class="control-buttons mt-1">
+    <input type="button" class="btn btn-outline-primary prev-slide" value="＜">
+    <input type="button" class="btn btn-outline-primary next-slide" value="＞">
+  </div>  
+  
+  <script type="text/javascript">
+  
+  // 前の画像へ
+  $(".prev-slide").on('click',function(){
+    $("#carousel").carousel('prev');
+  });
+  // 次の画像へ
+  $(".next-slide").on('click',function(){
+    $("#carousel").carousel('next');
+  });
+  </script>
+
   <style>
   /*インジケーターの位置調整*/
   .carousel-indicators{
-  margin-right: 65%;
+  margin-right: 20%;
   background-color:green;
   }
   /*「次へ」「前へ」ボタンの位置調整*/
   .mt-1{
-  margin-left: 275px;
+  margin-left: 500px;
   } 
   </style>

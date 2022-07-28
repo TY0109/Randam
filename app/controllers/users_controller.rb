@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @questions = Question.all
+    @folders = Folder.all
   end
 
   # 退会手続きページ（editページに働きは近い）
