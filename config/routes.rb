@@ -27,11 +27,7 @@ Rails.application.routes.draw do
     get "admin/logout", :to => "admin_users/sessions#destroy"
   end
 
-  resources :users, only:[:index, :show] do
-    member do
-      get "folders/myshow"
-    end
-  end
+  resources :users, only:[:index, :show] 
 
   resources :admin_users, only:[:show] do
     resources :folders
@@ -43,8 +39,6 @@ Rails.application.routes.draw do
   patch "users/:id/withdraw" => "users#withdraw", as: 'withdraw_user'
 
 
- 
-    
 
   
 end

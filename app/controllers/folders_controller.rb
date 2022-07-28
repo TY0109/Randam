@@ -1,5 +1,5 @@
 class FoldersController < ApplicationController
-  before_action :set_admin_user, only:[:new, :create, :index, :show]
+  before_action :set_admin_user
   before_action :set_folder, only:[:show]
   before_action :right_user, only:[:edit]
 
@@ -22,7 +22,7 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @questions = Question.where(folder_in: @folder.name )
+    @questions = @admin_user.questions.where(folder_in: @folder.name )
     
     @chapter1_questions=@questions.where(chapter: 1) 
     @chapter1_question_selected = @chapter1_questions.offset( rand( @chapter1_questions.count ) ).first
@@ -38,9 +38,6 @@ class FoldersController < ApplicationController
     
   end
 
-  def myshow
-    @questions = Question.where(user_id:current_user.id)
-  end
 
   private
     def folder_params
@@ -52,7 +49,7 @@ class FoldersController < ApplicationController
     end
 
     def set_folder
-      @folder = Folder.find(params[:id])
+      @folder = @admin_user.folders.find(params[:id])
     end
 
     def right_user

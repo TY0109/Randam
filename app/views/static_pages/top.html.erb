@@ -7,7 +7,7 @@
  <div class="row">
   <div class="col-md-6 offset-3">
     <p>チャートの基本例題をランダムで演習することができます。</p><br>
-    <p>問題構成は、数と式→図形と計量→2次関数→集合と命題→データの分析。</p>
+    <p>問題構成は</p>
 
     <!-- 場合の数と確率→整数の性質→図形の性質-->
     <!-- 3場合の数と確率、整数の性質、図形の性質については、2つ選択-->
@@ -22,6 +22,11 @@
         <%= link_to "フォルダ作成", new_admin_user_folder_path(current_admin_user), class:"btn btn-warning" %><br>
       <% elsif user_signed_in? %>
         <%= link_to "フォルダ作成", new_admin_user_folder_path(current_user.admin_user.id), class:"btn btn-warning" %><br>
+      <% end %>
+    
+    <div class="question-index">
+      <% if admin_user_signed_in? %>
+        <%= link_to "フォルダ一覧", admin_user_folders_path(@admin_user) %>
       <% end %>
     </div>
 

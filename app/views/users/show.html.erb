@@ -3,9 +3,6 @@
   <div class="row">
     <div class="col-md-6 offset-3">
       <%= @user.name %><br>
-      <% @folders.each do |folder| %>
-        <%= link_to folder.name, folders_myshow_user_path %>
-      <% end %>
     </div>
   </div>
 </div>
