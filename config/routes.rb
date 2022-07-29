@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     get "admin/logout", :to => "admin_users/sessions#destroy"
   end
 
-  resources :users, only:[:index, :show] 
-
   resources :admin_users, only:[:show] do
+    resources :users, only:[:index, :show] 
+
     resources :folders do
 
       member do
@@ -43,8 +43,9 @@ Rails.application.routes.draw do
   end
   
   # 退会についてのeditとupdate的なアクション
-  get "users/:id/unsubscribe" => "users#unsubscribe", as: 'confirm_unsubscribe'
-  patch "users/:id/withdraw" => "users#withdraw", as: 'withdraw_user'
+  # asで好きなルーティングヘルパーに設定
+  get "admin_users/:admin_user_id/users/:id/unsubscribe" => "users#unsubscribe", as: 'confirm_unsubscribe'
+  patch "admin_users/:admin_user_id/users/:id/withdraw" => "users#withdraw", as: 'withdraw_user'
 
 
 
