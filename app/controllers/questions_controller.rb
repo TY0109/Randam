@@ -1,10 +1,11 @@
 class QuestionsController < ApplicationController
   include SessionsHelper
-  # 正しい管理者→CRUD
-  # 正しい管理者の配下のスタッフ→CRUD. ただし、編集と削除は自分の投稿した問題のみ
-
-  before_action :authenticate_admin_user!
+  # 正しい管理者or正しい管理者を親に持つスタッフ→CR
+  # 正しい管理者or正しいスタッフ→UD
+  before_action :login_admin_user_or_login_user
   before_action :set_admin_user
+  before_action :correct_admin_user_or_user_of_correct_admin_user, only:[:index, :new, :create, :show]
+  before_action :correct_admin_user_or_correct_user, only:[:edit, :destroy]
 
   def index
     @questions = Question.all
@@ -52,15 +53,43 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:chapter, :image, :admin_user_id, :user_id, :folder_in)
     end
 
+    def login_admin_user_or_login_user
+      unless admin_user_signed_in? || user_signed_in?
+        flash[:alert]="管理者か従業員でログインしてください"
+        redirect_to root_url
+      end
+    end
+
     def set_admin_user
       @admin_user = AdminUser.find(params[:admin_user_id])
     end
 
-    def correct_admin_user
-      unless current_admin_user?(@admin_user)
-        flash[:alert]="権限がありません"
-        redirect_to root_url
+    def correct_admin_user_or_user_of_correct_admin_user
+      if admin_user_signed_in?
+        unless current_admin_user?(@admin_user)
+          flash[:alert]="権限がありません"
+          redirect_to root_url
+        end
+      elsif user_signed_in?
+        unless @admin_user == current_user.admin_user
+          flash[:alert]="権限がありません"
+          redirect_to root_url
+        end
       end
     end
-    
+
+    def correct_admin_user_or_correct_user
+      if admin_user_signed_in? 
+        unless current_admin_user?(@admin_user) 
+          flash[:alert]="権限がありません"
+          redirect_to root_url
+        end
+      elsif user_signed_in?
+        unless @question.current_user.id == current_user.id
+          flash[:alert]="権限がありません"
+          redirect_to root_url
+        end
+      end
+    end
+
 end

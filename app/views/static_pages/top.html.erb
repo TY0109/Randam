@@ -19,12 +19,15 @@
 
     <div class="folder-index">
       <% if admin_user_signed_in? %>
-        <%= link_to "フォルダ一覧", admin_user_folders_path(@admin_user), class:"btn btn-warning" %>
+        <%= link_to "フォルダ一覧", admin_user_folders_path(current_admin_user), class:"btn btn-warning" %>
+      <% elsif user_signed_in? %>
+        <%= link_to "フォルダ一覧", admin_user_folders_path(current_user.admin_user.id), class:"btn btn-warning" %>
       <% end %>
     </div>
 
     <div class="test-link">
       <% @folders.each do |folder| %>
+        <!-- 現段階では、生徒にはログインさせないので、1人の管理者（id=1）のフォルダにアクセスできれば十分　-->
         <%= link_to folder.name, randam_admin_user_folder_path(@admin_user.id, folder.id) %>
       <% end %>
     </div>
