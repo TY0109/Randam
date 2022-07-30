@@ -53,7 +53,7 @@ class FoldersController < ApplicationController
     @chapter6_questions=@questions.where(chapter:6)
     @chapter6_question_selected = @chapter6_questions.offset( rand( @chapter6_questions.count ) ).first
     
-    @chapter7_questions=@questions.where(chapter:3)
+    @chapter7_questions=@questions.where(chapter:7)
     @chapter7_question_selected = @chapter7_questions.offset( rand( @chapter7_questions.count ) ).first
     
     @chapter8_questions=@questions.where(chapter:8)
@@ -102,7 +102,8 @@ class FoldersController < ApplicationController
     def set_folder
       @folder = @admin_user.folders.find(params[:id])
     end
-    
+
+      
     
     
   end

@@ -22,8 +22,10 @@
       <!--「activeクラス」が付与されることで、画像が表示される-->
       <div class="carousel-item active">
         <!--w-50は「幅を50％に指定」と言う意味です。srcで画像を指定します。-->
-        <% if @chapter1_question_selected .image.attached? %>
-          <%= image_tag @chapter1_question_selected .image, class:"d-block w-100" %>
+        <% if @chapter1_question_selected.image.attached? %>
+          <%= image_tag @chapter1_question_selected.image, class:"d-block w-100" %>
+        <% else %>
+          <%= image_tag '/default.png' %>
         <% end %>
       </div>
      
